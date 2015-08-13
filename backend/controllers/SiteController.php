@@ -103,7 +103,7 @@ class SiteController extends BaseController
         if (($model = Site::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            return ['message' => 'Record not found'];
         }
     }
 }

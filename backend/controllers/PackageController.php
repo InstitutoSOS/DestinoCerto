@@ -16,15 +16,14 @@ use yii\helpers\Json;
 class PackageController extends BaseController
 {
 
+    public $modelClass = 'common\models\Package';
+
     /**
      * Lists all Package models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $dataProvider = new ActiveDataProvider([
-            'query' => Package::find(),
-        ]);
 
         $data = Package::find()->all();
         return Json::encode($data);
@@ -102,7 +101,7 @@ class PackageController extends BaseController
         if (($model = Package::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            return ['message' => 'Record not found'];
         }
     }
 }

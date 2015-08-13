@@ -103,7 +103,7 @@ class UserController extends BaseController
         if (($model = User::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            return ['message' => 'Record not found'];
         }
     }
 }
