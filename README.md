@@ -1,5 +1,46 @@
-Yii 2 Basic Project Template
+Destino Certo
 ============================
+
+Routes
+-------------------
+POST /api/v1/login
+  {
+    username,
+    password
+  }
+
+POST /api/v1/signup
+  {
+    username,
+    password,
+    addresss,
+    name, // cooperative
+
+  }
+
+GET /api/v1/package/:barcode
+  {
+    barcode,
+    material,
+    weight,
+    label_created,
+    package_created,
+    picture,
+    location_history: [
+      timestamp,
+      lat, 
+      lng
+    ]
+  }
+POST /api/v1/package/:barcode 
+  {
+    lat, 
+    lng
+  }
+
+GET /api/v1/cooperative
+
+gist
 
 Yii 2 Basic Project Template is a skeleton [Yii 2](http://www.yiiframework.com/) application best for
 rapidly creating small projects.
