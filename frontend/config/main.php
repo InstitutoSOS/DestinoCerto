@@ -16,15 +16,19 @@ return [
             'identityClass' => 'common\models\User',
             'enableAutoLogin' => true,
         ],
+        'request' => [
+            'baseUrl' => '/',
+        ],
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
+            'baseUrl' => '/',
             'rules' => [
                 '<controller:\w+>' => '<controller>/index',
                 '<controller:\w+>/<id:\d+>' => '<controller>/view',
                 '<controller:\w+>/<action:\w+>/<token:.+>' => '<controller>/<action>',
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
-            ]
+            ],
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
