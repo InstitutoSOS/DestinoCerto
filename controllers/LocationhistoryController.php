@@ -3,16 +3,16 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Site;
+use app\models\LocationHistory;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * SiteController implements the CRUD actions for Site model.
+ * LocationhistoryController implements the CRUD actions for LocationHistory model.
  */
-class SiteController extends Controller
+class LocationhistoryController extends Controller
 {
     public function behaviors()
     {
@@ -27,13 +27,13 @@ class SiteController extends Controller
     }
 
     /**
-     * Lists all Site models.
+     * Lists all LocationHistory models.
      * @return mixed
      */
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => Site::find(),
+            'query' => LocationHistory::find(),
         ]);
 
         return $this->render('index', [
@@ -42,7 +42,7 @@ class SiteController extends Controller
     }
 
     /**
-     * Displays a single Site model.
+     * Displays a single LocationHistory model.
      * @param integer $id
      * @return mixed
      */
@@ -54,13 +54,13 @@ class SiteController extends Controller
     }
 
     /**
-     * Creates a new Site model.
+     * Creates a new LocationHistory model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Site();
+        $model = new LocationHistory();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -72,7 +72,7 @@ class SiteController extends Controller
     }
 
     /**
-     * Updates an existing Site model.
+     * Updates an existing LocationHistory model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -91,7 +91,7 @@ class SiteController extends Controller
     }
 
     /**
-     * Deletes an existing Site model.
+     * Deletes an existing LocationHistory model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -104,15 +104,15 @@ class SiteController extends Controller
     }
 
     /**
-     * Finds the Site model based on its primary key value.
+     * Finds the LocationHistory model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Site the loaded model
+     * @return LocationHistory the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Site::findOne($id)) !== null) {
+        if (($model = LocationHistory::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

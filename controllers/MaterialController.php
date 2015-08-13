@@ -3,16 +3,16 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Site;
+use app\models\Material;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * SiteController implements the CRUD actions for Site model.
+ * MaterialController implements the CRUD actions for Material model.
  */
-class SiteController extends Controller
+class MaterialController extends Controller
 {
     public function behaviors()
     {
@@ -27,13 +27,13 @@ class SiteController extends Controller
     }
 
     /**
-     * Lists all Site models.
+     * Lists all Material models.
      * @return mixed
      */
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => Site::find(),
+            'query' => Material::find(),
         ]);
 
         return $this->render('index', [
@@ -42,7 +42,7 @@ class SiteController extends Controller
     }
 
     /**
-     * Displays a single Site model.
+     * Displays a single Material model.
      * @param integer $id
      * @return mixed
      */
@@ -54,13 +54,13 @@ class SiteController extends Controller
     }
 
     /**
-     * Creates a new Site model.
+     * Creates a new Material model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Site();
+        $model = new Material();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -72,7 +72,7 @@ class SiteController extends Controller
     }
 
     /**
-     * Updates an existing Site model.
+     * Updates an existing Material model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -91,7 +91,7 @@ class SiteController extends Controller
     }
 
     /**
-     * Deletes an existing Site model.
+     * Deletes an existing Material model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -104,15 +104,15 @@ class SiteController extends Controller
     }
 
     /**
-     * Finds the Site model based on its primary key value.
+     * Finds the Material model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Site the loaded model
+     * @return Material the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Site::findOne($id)) !== null) {
+        if (($model = Material::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

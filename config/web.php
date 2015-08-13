@@ -6,13 +6,16 @@ $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
+    'defaultRoute' => 'pages/index',
+    'language' => 'pt-br',
     'components' => [
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                '<controller:\w+>/<id:\d+>' => '<controller>/view',
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
-                '<controller:\w+>/view/<id:\d+>' => '<controller>/view'
+                'POST api/v1/<controller:\w+>' => '<controller>/create',
             ]
         ],
         'request' => [
@@ -41,7 +44,7 @@ $config = [
             'targets' => [
                 [
                     'class' => 'yii\log\FileTarget',
-                    'levels' => ['error', 'warning'],
+                    'levels' => ['error', 'warning']
                 ],
             ],
         ],
