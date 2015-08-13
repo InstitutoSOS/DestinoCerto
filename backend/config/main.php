@@ -20,11 +20,11 @@ return [
         'urlManager' => [
             'baseUrl' => '/api',
             'rules' => [
-                'POST material' => 'material/create',
                 'GET <controller>' => '<controller>/index',
-                'GET <controller:\w+>/<id:\d+>' => '<controller>/view',
-                'PUT <controller:\w+>/<id:\d+>' => '<controller>/update',
-                'DELETE <controller:\w+>/<id:\d+>' => '<controller>/delete',
+                'POST <controller>' => '<controller>/create',
+                'GET <controller>/<id>' => '<controller>/view',
+                'PUT <controller>/<id>' => '<controller>/update',
+                'DELETE <controller>/<id:\d+>' => '<controller>/delete',
                 
 
             ],
