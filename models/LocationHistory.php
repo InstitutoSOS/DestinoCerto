@@ -5,24 +5,23 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "user".
+ * This is the model class for table "location_history".
  *
  * @property integer $id
  * @property integer $site_id
- * @property string $username
- * @property string $password
- * @property integer $isAdmin
+ * @property string $timestamp
  *
  * @property Site $site
+ * @property Package $id0
  */
-class User extends \yii\db\ActiveRecord
+class LocationHistory extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'user';
+        return 'location_history';
     }
 
     /**
@@ -31,10 +30,9 @@ class User extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'site_id', 'username', 'password'], 'required'],
-            [['id', 'site_id', 'isAdmin'], 'integer'],
-            [['username'], 'string', 'max' => 45],
-            [['password'], 'string', 'max' => 255]
+            [['id', 'site_id'], 'required'],
+            [['id', 'site_id'], 'integer'],
+            [['timestamp'], 'safe']
         ];
     }
 
@@ -46,9 +44,7 @@ class User extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'site_id' => 'Site ID',
-            'username' => 'Username',
-            'password' => 'Password',
-            'isAdmin' => 'Is Admin',
+            'timestamp' => 'Timestamp',
         ];
     }
 
@@ -58,5 +54,13 @@ class User extends \yii\db\ActiveRecord
     public function getSite()
     {
         return $this->hasOne(Site::className(), ['id' => 'site_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getId0()
+    {
+        return $this->hasOne(Package::className(), ['id' => 'id']);
     }
 }
