@@ -7,11 +7,8 @@ $params = array_merge(
 );
 
 $folder = explode('/', $_SERVER['REDIRECT_URL'])[1];
-// $baseUrl = '/'.$folder.'/api';
 $baseUrl = '/api';
 
-// print_r($baseUrl);
-// die();
 return [
     'id' => 'app-backend',
     'basePath' => dirname(__DIR__),
