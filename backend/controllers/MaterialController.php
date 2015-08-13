@@ -67,9 +67,15 @@ class MaterialController extends BaseController
         $model = $this->findModel($id);
         $arr['Material'] = Yii::$app->request->post();
         if ($model->load($arr) && $model->save()) {
-            return Json::encode($model);
+            Yii::$app->response->format = 'json';
+            Yii::$app->response->setStatusCode(201);
+            Yii::$app->response->data = $model;
+            Yii::$app->response->send();
         } else {
-            return Json::encode(['message' => 'Record cound\'t be saved']);
+            Yii::$app->response->format = 'json';
+            Yii::$app->response->setStatusCode(400);
+            Yii::$app->response->data = ['message' => 'Record cound\'t be saved'];
+            Yii::$app->response->send();
         }
     }
 
@@ -101,7 +107,10 @@ class MaterialController extends BaseController
         if (($model = Material::findOne($id)) !== null) {
             return $model;
         } else {
-            return ['message' => 'Record not found'];
+            Yii::$app->response->format = 'json';
+            Yii::$app->response->setStatusCode(404);
+            Yii::$app->response->data = ['message' => 'Record not found'];
+            Yii::$app->response->send();
         }
     }
 }
