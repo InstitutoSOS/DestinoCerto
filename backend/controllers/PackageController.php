@@ -104,7 +104,7 @@ class PackageController extends BaseController
      */
     protected function findModel($id)
     {
-        if (($model = Package::findOne($id)) !== null) {
+        if (($model = Package::find()->where(['package.barcode' => $id])->joinWith('material', false)->one()) !== null) {
             return $model;
         } else {
             Yii::$app->response->format = 'json';
