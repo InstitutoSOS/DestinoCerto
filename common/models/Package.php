@@ -59,9 +59,17 @@ class Package extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getLocationHistories()
+    public function getSiteHistory()
     {
         return $this->hasMany(LocationHistory::className(), ['package_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCurrentSite()
+    {
+        return $this->hasOne(LocationHistory::className(), ['package_id' => 'id'])->orderBy('timestamp DESC')->limit(1);
     }
 
     /**
