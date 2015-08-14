@@ -3,7 +3,7 @@
 namespace backend\controllers;
 
 use Yii;
-use common\models\Package;
+use common\models\LocationHistory;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -11,26 +11,26 @@ use yii\filters\VerbFilter;
 use yii\helpers\Json;
 
 /**
- * PackageController implements the CRUD actions for Package model.
+ * LocationHistoryController implements the CRUD actions for LocationHistory model.
  */
-class PackageController extends BaseController
+class LocationhistoryController extends BaseController
 {
 
-    public $modelClass = 'common\models\Package';
+    public $modelClass = 'common\models\LocationHistory';
 
     /**
-     * Lists all Package models.
+     * Lists all LocationHistory models.
      * @return mixed
      */
     public function actionIndex()
     {
 
-        $data = Package::find()->with('material')->asArray()->all();
+        $data = LocationHistory::find()->with('package', 'site')->asArray()->all();
         return Json::encode($data);
     }
 
     /**
-     * Displays a single Package model.
+     * Displays a single LocationHistory model.
      * @param integer $id
      * @return mixed
      */
@@ -41,14 +41,14 @@ class PackageController extends BaseController
     }
 
     /**
-     * Creates a new Package model.
+     * Creates a new LocationHistory model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Package();
-        $arr['Package'] = Yii::$app->request->post();
+        $model = new LocationHistory();
+        $arr['LocationHistory'] = Yii::$app->request->post();
         if ($model->load($arr) && $model->save()) {
             Yii::$app->response->format = 'json';
             Yii::$app->response->setStatusCode(201);
@@ -63,7 +63,7 @@ class PackageController extends BaseController
     }
 
     /**
-     * Updates an existing Package model.
+     * Updates an existing LocationHistory model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -71,7 +71,7 @@ class PackageController extends BaseController
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $arr['Package'] = Yii::$app->request->post();
+        $arr['LocationHistory'] = Yii::$app->request->post();
         if ($model->load($arr) && $model->save()) {
             return Json::encode($model);
         } else {
@@ -80,7 +80,7 @@ class PackageController extends BaseController
     }
 
     /**
-     * Deletes an existing Package model.
+     * Deletes an existing LocationHistory model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -96,15 +96,15 @@ class PackageController extends BaseController
     }
 
     /**
-     * Finds the Package model based on its primary key value.
+     * Finds the LocationHistory model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Package the loaded model
+     * @return LocationHistory the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Package::find()->where(['package.barcode' => $id])->with('material', 'locationHistories', 'locationHistories.site')->asArray()->one()) !== null) {
+        if (($model = LocationHistory::find()->where(['id' => $id])->with('package', 'site')->asArray()->one()) !== null) {
             return $model;
         } else {
             Yii::$app->response->format = 'json';
