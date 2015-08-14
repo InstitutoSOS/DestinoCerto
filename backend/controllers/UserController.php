@@ -55,7 +55,7 @@ class UserController extends BaseController
             $response['model'] = $model;
             return $response;
         } else {
-            Yii::$app->response->setStatusCode(404);
+            Yii::$app->response->setStatusCode(200);
             return ['message' => 'Password Incorrect', 'success'=>false, 'userExists' => true];
         }
 
