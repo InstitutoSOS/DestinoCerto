@@ -40,6 +40,28 @@ class UserController extends BaseController
         return Json::encode($data);
     }
 
+    public function actionLogin()
+    {
+        $post = Yii::$app->request->post();
+
+        $model = User::find()->where(['username' => $post['username']])->one();
+
+        if (Yii::$app->security->validatePassword($post['password'], $model->password)) {
+            Yii::$app->response->format = 'json';
+            Yii::$app->response->data = $model;
+            Yii::$app->response->send();
+        } else {
+            Yii::$app->response->format = 'json';
+            Yii::$app->response->setStatusCode(404);
+            Yii::$app->response->data = ['message' => 'User not found', 'status'=>false];
+            Yii::$app->response->send();
+        }
+
+
+
+
+    }
+
     /**
      * Creates a new User model.
      * If creation is successful, the browser will be redirected to the 'view' page.
@@ -50,11 +72,15 @@ class UserController extends BaseController
         $model = new User();
 
         $arr['User'] = Yii::$app->request->post();
-        if ($model->load($arr) && $model->save()) {
-            Yii::$app->response->format = 'json';
-            Yii::$app->response->setStatusCode(201);
-            Yii::$app->response->data = $model;
-            Yii::$app->response->send();
+        if ($model->load($arr)) {
+            $hash = Yii::$app->security->generatePasswordHash($hash);
+            $model->password = $hash;
+            if($model->save()){
+                Yii::$app->response->format = 'json';
+                Yii::$app->response->setStatusCode(201);
+                Yii::$app->response->data = $model;
+                Yii::$app->response->send();
+            }
         } else {
             Yii::$app->response->format = 'json';
             Yii::$app->response->setStatusCode(400);

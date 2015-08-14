@@ -59,4 +59,12 @@ class User extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Site::className(), ['id' => 'site_id']);
     }
+
+    public function beforeSave($insert)
+    {
+        $hash = Yii::$app->getSecurity()->generatePasswordHash($this->password);
+        $this->password = $hash;
+        return $hash;
+        return parent::beforeSave($insert);
+    }
 }
