@@ -61,6 +61,6 @@ class LocationHistory extends \yii\db\ActiveRecord
      */
     public function getPackage()
     {
-        return $this->hasOne(Package::className(), ['id' => 'package_id']);
+        return $this->hasMany(Package::className(), ['id' => 'package_id']);
     }
 }
