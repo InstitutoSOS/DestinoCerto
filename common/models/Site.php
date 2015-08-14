@@ -79,4 +79,9 @@ class Site extends \yii\db\ActiveRecord
     {
         return $this->hasMany(User::className(), ['site_id' => 'id']);
     }
+
+    public function getMaterials()
+    {
+        return $this->hasMany(LocationHistory::className(), ['site_id' => 'id']);
+    }
 }

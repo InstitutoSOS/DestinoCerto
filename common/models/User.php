@@ -64,7 +64,6 @@ class User extends \yii\db\ActiveRecord
     {
         $hash = Yii::$app->getSecurity()->generatePasswordHash($this->password);
         $this->password = $hash;
-        return $hash;
         return parent::beforeSave($insert);
     }
 }
