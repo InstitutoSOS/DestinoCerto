@@ -33,7 +33,7 @@ class Site extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['lat', 'lng', 'name', 'taxId', 'site_type'], 'required'],
+            [['name', 'taxId', 'address'], 'required'],
             [['id'], 'integer'],
             [['site_type'], 'string'],
             [['lat', 'lng'], 'string', 'max' => 45],
@@ -82,6 +82,19 @@ class Site extends \yii\db\ActiveRecord
 
     public function getMaterials()
     {
-        return $this->hasMany(LocationHistory::className(), ['site_id' => 'id']);
+        return $this->hasMany(LocationHistory::className(), ['site_id' => 'id'])->with('package');
+    }
+
+    public function beforeSave($insert)
+    {
+        $url = 'https://maps.googleapis.com/maps/api/geocode/json?sensor=false&address='.$this->address.'';
+        $file = file_get_contents($url);
+        // $json = json_decode($file, true);
+        $this->lat = 'dawdwa';
+        die();
+        return 'asawd';
+        echo "string";
+        die('sadaw');
+        return parent::beforeSave($insert);
     }
 }
