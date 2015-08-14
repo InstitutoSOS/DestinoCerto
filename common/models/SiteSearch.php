@@ -19,7 +19,7 @@ class SiteSearch extends Site
     {
         return [
             [['id'], 'integer'],
-            [['lat', 'lng', 'name', 'taxId', 'isCooperative'], 'safe'],
+            [['lat', 'lng', 'name', 'taxId', 'site_type'], 'safe'],
         ];
     }
 
@@ -63,7 +63,7 @@ class SiteSearch extends Site
             ->andFilterWhere(['like', 'lng', $this->lng])
             ->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'taxId', $this->taxId])
-            ->andFilterWhere(['like', 'isCooperative', $this->isCooperative]);
+            ->andFilterWhere(['like', 'site_type', $this->site_type]);
 
         return $dataProvider;
     }

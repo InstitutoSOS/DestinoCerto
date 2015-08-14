@@ -12,7 +12,7 @@ use Yii;
  * @property string $lng
  * @property string $name
  * @property string $taxId
- * @property string $isCooperative
+ * @property string $site_type
  *
  * @property LocationHistory[] $locationHistories
  * @property User[] $users
@@ -33,9 +33,9 @@ class Site extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['lat', 'lng', 'name', 'taxId', 'isCooperative'], 'required'],
+            [['lat', 'lng', 'name', 'taxId', 'site_type'], 'required'],
             [['id'], 'integer'],
-            [['isCooperative'], 'string'],
+            [['site_type'], 'string'],
             [['lat', 'lng'], 'string', 'max' => 45],
             [['name'], 'string', 'max' => 255],
             [['taxId'], 'string', 'max' => 20]
@@ -53,7 +53,7 @@ class Site extends \yii\db\ActiveRecord
             'lng' => 'Lng',
             'name' => 'Name',
             'taxId' => 'Tax ID',
-            'isCooperative' => 'Is Cooperative',
+            'site_type' => 'Is Cooperative',
         ];
     }
 
