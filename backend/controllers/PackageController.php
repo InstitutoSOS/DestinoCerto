@@ -25,7 +25,7 @@ class PackageController extends BaseController
     public function actionIndex()
     {
 
-        $data = Package::find()->with('material')->asArray()->all();
+        $data = Package::find()->with('material', 'locationHistories', 'locationHistories.site')->asArray()->all();
         return Json::encode($data);
     }
 
