@@ -104,7 +104,7 @@ class MaterialController extends BaseController
      */
     protected function findModel($id)
     {
-        if (($model = Material::findOne($id)) !== null) {
+        if (($model = Material::find()->where(['id' => $id])->with('sites')->asArray()->one()) !== null) {
             return $model;
         } else {
             Yii::$app->response->format = 'json';

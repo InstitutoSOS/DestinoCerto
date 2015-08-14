@@ -52,4 +52,9 @@ class Material extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Package::className(), ['material_id' => 'id']);
     }
+
+    public function getSites()
+    {
+        return $this->hasMany(Package::className(), ['material_id' => 'id'])->with('currentLocation');
+    }
 }

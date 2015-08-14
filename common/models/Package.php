@@ -61,7 +61,7 @@ class Package extends \yii\db\ActiveRecord
      */
     public function getSiteHistory()
     {
-        return $this->hasMany(LocationHistory::className(), ['package_id' => 'id']);
+        return $this->hasMany(LocationHistory::className(), ['package_id' => 'id'])->with('site');
     }
 
     /**
