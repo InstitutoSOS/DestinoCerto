@@ -67,9 +67,9 @@ class Package extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getCurrentSite()
+    public function getCurrentLocation()
     {
-        return $this->hasOne(LocationHistory::className(), ['package_id' => 'id'])->orderBy('timestamp DESC')->limit(1);
+        return $this->hasOne(LocationHistory::className(), ['package_id' => 'id'])->orderBy('timestamp DESC')->with('site')->limit(1);
     }
 
     /**

@@ -25,7 +25,7 @@ class PackageController extends BaseController
     public function actionIndex()
     {
 
-        $data = Package::find()->with('material', 'siteHistory', 'siteHistory.site', 'currentSite')->asArray()->all();
+        $data = Package::find()->with('material', 'siteHistory', 'siteHistory.site', 'currentLocation')->asArray()->all();
         return Json::encode($data);
     }
 
@@ -104,7 +104,7 @@ class PackageController extends BaseController
      */
     protected function findModel($id)
     {
-        if (($model = Package::find()->where(['package.barcode' => $id])->with('material', 'siteHistory', 'siteHistory.site', 'currentSite')->asArray()->one()) !== null) {
+        if (($model = Package::find()->where(['package.barcode' => $id])->with('material', 'siteHistory', 'siteHistory.site', 'currentLocation')->asArray()->one()) !== null) {
 
             return $model;
         } else {
