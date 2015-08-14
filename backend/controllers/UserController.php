@@ -100,8 +100,9 @@ class UserController extends BaseController
         $model = $this->findModel($id);
 
         $arr['User'] = Yii::$app->request->post();
-        if ($model->load($arr) && $model->save()) {
-            return Json::encode($model);
+        if ($model->load($arr)) {
+            if($model->save())
+                return Json::encode($model);
         } else {
             Yii::$app->response->format = 'json';
             Yii::$app->response->setStatusCode(400);
@@ -142,6 +143,7 @@ class UserController extends BaseController
             Yii::$app->response->setStatusCode(404);
             Yii::$app->response->data = ['message' => 'Record not found'];
             Yii::$app->response->send();
+            die();
         }
     }
 }
