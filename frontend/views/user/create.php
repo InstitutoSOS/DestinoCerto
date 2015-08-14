@@ -4,13 +4,13 @@ use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
-/* @var $model common\models\cooperative */
+/* @var $model app\models\User */
 
-$this->title = 'Create cooperative';
-$this->params['breadcrumbs'][] = ['label' => 'cooperatives', 'url' => ['index']];
+$this->title = 'Create User';
+$this->params['breadcrumbs'][] = ['label' => 'Users', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="cooperative-create">
+<div class="user-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

@@ -4,13 +4,13 @@ use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
-/* @var $model common\models\cooperative */
+/* @var $model app\models\LocationHistory */
 
-$this->title = 'Create cooperative';
-$this->params['breadcrumbs'][] = ['label' => 'cooperatives', 'url' => ['index']];
+$this->title = 'Create Location History';
+$this->params['breadcrumbs'][] = ['label' => 'Location Histories', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="cooperative-create">
+<div class="location-history-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

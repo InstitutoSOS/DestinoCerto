@@ -4,13 +4,13 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\cooperative */
+/* @var $model app\models\User */
 
-$this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'cooperatives', 'url' => ['index']];
+$this->title = $model->id;
+$this->params['breadcrumbs'][] = ['label' => 'Users', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="cooperative-view">
+<div class="user-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -29,11 +29,10 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'lat',
-            'lng',
-            'name',
-            'taxId',
-            'isCooperative',
+            'site_id',
+            'username',
+            'password',
+            'isAdmin',
         ],
     ]) ?>
 
