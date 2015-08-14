@@ -59,9 +59,9 @@ class Package extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getLocationHistory()
+    public function getLocationHistories()
     {
-        return $this->hasOne(LocationHistory::className(), ['id' => 'id']);
+        return $this->hasMany(LocationHistory::className(), ['package_id' => 'id']);
     }
 
     /**

@@ -56,11 +56,11 @@ class LocationHistory extends \yii\db\ActiveRecord
         return $this->hasOne(Site::className(), ['id' => 'site_id']);
     }
 
-    /**
+     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getId0()
+    public function getPackage()
     {
-        return $this->hasOne(Package::className(), ['id' => 'id']);
+        return $this->hasOne(Package::className(), ['id' => 'package_id']);
     }
 }
