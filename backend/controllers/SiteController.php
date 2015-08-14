@@ -106,7 +106,7 @@ class SiteController extends BaseController
      */
     protected function findModel($id)
     {
-        if (($model = Site::findOne($id)) !== null) {
+        if (($model = Site::find()->where(['id' => $id])->with('locationHistories.package')->asArray()->one()) !== null) {
             return $model;
         } else {
             Yii::$app->response->format = 'json';
