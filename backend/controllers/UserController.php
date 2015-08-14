@@ -45,15 +45,18 @@ class UserController extends BaseController
         $post = Yii::$app->request->post();
 
         $model = User::find()->where(['username' => $post['username']])->one();
-
-        if (Yii::$app->security->validatePassword($post['password'], $model->password)) {
+        if ($model == null) {
+            Yii::$app->response->format = 'json';
+            Yii::$app->response->data = ['message' => 'User not found', 'status' => false, 'userExists' => false];
+            Yii::$app->response->send();
+        } elseif (Yii::$app->security->validatePassword($post['password'], $model->password)) {
             Yii::$app->response->format = 'json';
             Yii::$app->response->data = $model;
             Yii::$app->response->send();
         } else {
             Yii::$app->response->format = 'json';
             Yii::$app->response->setStatusCode(404);
-            Yii::$app->response->data = ['message' => 'User not found', 'status'=>false];
+            Yii::$app->response->data = ['message' => 'Password Incorrect', 'status'=>false, 'userExists' => true];
             Yii::$app->response->send();
         }
 
