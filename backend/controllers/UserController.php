@@ -74,20 +74,17 @@ class UserController extends BaseController
         $model = new User();
 
         $arr['User'] = Yii::$app->request->post();
+        Yii::$app->response->format = 'json';
         if ($model->load($arr)) {
-            $hash = Yii::$app->security->generatePasswordHash($hash);
-            $model->password = $hash;
             if($model->save()){
-                Yii::$app->response->format = 'json';
                 Yii::$app->response->setStatusCode(201);
-                Yii::$app->response->data = $model;
-                Yii::$app->response->send();
+                return $model;
+            } else {
+                return ['message' => 'Rcords couldn\'t be lodead saved'];
             }
         } else {
-            Yii::$app->response->format = 'json';
             Yii::$app->response->setStatusCode(400);
-            Yii::$app->response->data = ['message' => 'Record cound\'t be saved'];
-            Yii::$app->response->send();
+            return ['message' => 'Record cound\'t be saved'];
         }
     }
 

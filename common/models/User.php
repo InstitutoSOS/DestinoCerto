@@ -31,7 +31,7 @@ class User extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['site_id', 'username', 'password'], 'required'],
+            [['username', 'password'], 'required'],
             [['site_id', 'isAdmin'], 'integer'],
             [['username'], 'string', 'max' => 45],
             [['password'], 'string', 'max' => 255]
@@ -64,6 +64,7 @@ class User extends \yii\db\ActiveRecord
     {
         $hash = Yii::$app->getSecurity()->generatePasswordHash($this->password);
         $this->password = $hash;
+        $this->isAdmin = 0;
         return parent::beforeSave($insert);
     }
 }
