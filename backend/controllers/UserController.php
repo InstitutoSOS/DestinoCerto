@@ -15,19 +15,6 @@ use yii\helpers\Json;
  */
 class UserController extends BaseController
 {
-    /**
-     * Lists all User models.
-     * @return mixed
-     */
-    public function actionIndex()
-    {
-        $dataProvider = new ActiveDataProvider([
-            'query' => User::find(),
-        ]);
-
-        $data = User::find()->all();
-        return Json::encode($data);
-    }
 
     /**
      * Displays a single User model.

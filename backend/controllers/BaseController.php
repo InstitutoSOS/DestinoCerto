@@ -39,4 +39,11 @@ class BaseController extends Controller
             ],
         ];
     }
+
+    public function actionError()
+    {
+        Yii::$app->response->format = 'json';
+        Yii::$app->response->setStatusCode(404);
+        return ['message' => 'Route not defined', 'success' => false];
+    }
 }
