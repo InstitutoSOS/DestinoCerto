@@ -82,19 +82,19 @@ class Site extends \yii\db\ActiveRecord
 
     public function getMaterials()
     {
-        return $this->hasMany(LocationHistory::className(), ['site_id' => 'id'])->with('package');
+        return $this->hasMany(LocationHistory::className(), ['site_id' => 'id'])
+            ->select('location_history.*')
+            ->innerJoin('package')
+            ->innerJoin('material');
     }
 
     public function beforeSave($insert)
     {
-        $url = 'https://maps.googleapis.com/maps/api/geocode/json?sensor=false&address='.$this->address.'';
+        $url = 'https://maps.googleapis.com/maps/api/geocode/json?sensor=false&address='.urlencode($this->address);
         $file = file_get_contents($url);
-        // $json = json_decode($file, true);
-        $this->lat = 'dawdwa';
-        die();
-        return 'asawd';
-        echo "string";
-        die('sadaw');
+        $json = json_decode($file, true);
+        $this->lat = $json['results'][0]['geometry']['location']['lat'];
+        $this->lng = $json['results'][0]['geometry']['location']['lng'];
         return parent::beforeSave($insert);
     }
 }

@@ -26,7 +26,8 @@ class SiteController extends BaseController
         ]);
 
         $data = Site::find()->all();
-        return Json::encode($data);
+        Yii::$app->response->format = 'json';
+        return $data;
     }
 
     /**
@@ -36,8 +37,15 @@ class SiteController extends BaseController
      */
     public function actionView($id)
     {
-        $data = $this->findModel($id);
-        return Json::encode($data);
+        Yii::$app->response->format = 'json';
+        $model = Site::find()->where(['site.id' => $id])
+            ->select(['site.*', 'package.*', 'material.*'])
+            ->innerJoin('location_history')
+            ->innerJoin('package')
+            ->innerJoin('material')
+            ->asArray()
+            ->one();
+        return $model;
     }
 
     /**
@@ -53,13 +61,11 @@ class SiteController extends BaseController
         if ($model->load($arr) && $model->save()) {
             Yii::$app->response->format = 'json';
             Yii::$app->response->setStatusCode(201);
-            Yii::$app->response->data = $model;
-            Yii::$app->response->send();
+            return $model;
         } else {
             Yii::$app->response->format = 'json';
             Yii::$app->response->setStatusCode(400);
-            Yii::$app->response->data = ['message' => 'Record cound\'t be saved'];
-            Yii::$app->response->send();
+            return ['message' => 'Record cound\'t be saved'];
         }
     }
 
@@ -71,13 +77,15 @@ class SiteController extends BaseController
      */
     public function actionUpdate($id)
     {
+        Yii::$app->response->format = 'json';
         $model = $this->findModel($id);
 
         $arr['Site'] = Yii::$app->request->post();
-        if ($model->load($arr) && $model->save()) {
-            return Json::encode($model);
+        if ($model->load($arr)) {
+            if ($model->save())
+                return $model;
         } else {
-            return Json::encode(['message' => 'Record cound\'t be saved']);
+            return ['message' => 'Record cound\'t be saved'];
         }
     }
 
@@ -89,12 +97,12 @@ class SiteController extends BaseController
      */
     public function actionDelete($id)
     {
+        Yii::$app->response->format = 'json';
         if($this->findModel($id)->delete())
-            return Json::encode(['message' => 'Record deleted']);
+            return ['message' => 'Record deleted'];
         else
-            return Json::encode(['message' => 'Record cound\'t be deleted']);
+            return ['message' => 'Record cound\'t be deleted'];
 
-        return $this->redirect(['index']);
     }
 
     /**
@@ -107,17 +115,17 @@ class SiteController extends BaseController
     protected function findModel($id)
     {
         $model = Site::find()->where(['id' => $id])
-            ->with('locationHistories.package')
-            ->asArray()
+            ->with('materials')
             ->one();
+
         if ($model !== null) 
         {
             return $model;
         } else {
             Yii::$app->response->format = 'json';
             Yii::$app->response->setStatusCode(404);
-            Yii::$app->response->data = ['message' => 'Record not found'];
-            Yii::$app->response->send();
+            return ['message' => 'Record not found'];
+            die();
         }
     }
 }
