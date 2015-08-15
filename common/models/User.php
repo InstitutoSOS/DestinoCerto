@@ -67,4 +67,9 @@ class User extends \yii\db\ActiveRecord
         $this->isAdmin = 0;
         return parent::beforeSave($insert);
     }
+
+    public function fields()
+    {
+        return ['id', 'username', 'site_id'];
+    }
 }
