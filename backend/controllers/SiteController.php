@@ -47,7 +47,7 @@ class SiteController extends BaseController
             ->innerJoin('material')
             ->asArray()
             ->one();
-        $response = [];
+        // $response = [];
         $model = Site::find()->where(['site.id' => $id])->asArray()->one();
 
 
@@ -58,18 +58,21 @@ class SiteController extends BaseController
             ->asArray()
             ->all();
 
-        $response[] = $model;
+        $response = $model;
         $response['materials'] = [];
         foreach ($packages as $key => $value) :
             $package = Package::find()->with('material')->asArray()->one();
-
-            $response['materials'][strtolower($package['material']['name'])] = [
-                'weight' => $package['weight'],
-            ];
+            if (isset($response['materials'][strtolower($package['material']['name'])])) {
+                $response['materials'][strtolower($package['material']['name'])] = [
+                    'weight' => $response['materials'][strtolower($package['material']['name'])]+$package['weight'],
+                ];
+            } else {
+                $response['materials'][strtolower($package['material']['name'])] = [
+                    'weight' => $package['weight'],
+                ];
+            }
         endforeach;
 
-
-        // $model = \yii\helpers\ArrayHelper::map($model, '');
         return $response;
     }
 
