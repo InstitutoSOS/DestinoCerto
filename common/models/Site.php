@@ -33,7 +33,7 @@ class Site extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'taxId', 'address'], 'required'],
+            [['name', 'address'], 'required'],
             [['id'], 'integer'],
             [['site_type'], 'string'],
             [['lat', 'lng'], 'string', 'max' => 45],
@@ -90,6 +90,7 @@ class Site extends \yii\db\ActiveRecord
 
     public function beforeSave($insert)
     {
+        $this->taxId = 20;
         $url = 'https://maps.googleapis.com/maps/api/geocode/json?sensor=false&address='.urlencode($this->address);
         $file = file_get_contents($url);
         $json = json_decode($file, true);
