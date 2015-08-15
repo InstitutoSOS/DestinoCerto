@@ -29,6 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'lat',
             'lng',
             'name',
+            'address',
             'taxId',
             // 'isCooperative',
 

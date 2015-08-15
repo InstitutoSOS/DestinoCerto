@@ -55,7 +55,7 @@ class Site extends \yii\db\ActiveRecord
             'lng' => 'Lng',
             'name' => 'Name',
             'taxId' => 'Tax ID',
-            'site_type' => 'Is Cooperative',
+            'site_type' => 'Site Type',
         ];
     }
 
