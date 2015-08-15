@@ -4,6 +4,8 @@ namespace backend\controllers;
 
 use Yii;
 use common\models\Site;
+use common\models\Package;
+use common\models\LocationHistory;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -45,11 +47,30 @@ class SiteController extends BaseController
             ->innerJoin('material')
             ->asArray()
             ->one();
-        $model = Site::find()->where(['site.id' => $id])->one();
-        $packages = Package::find()->where(['site_id' => $model->id])->all();
+        $response = [];
+        $model = Site::find()->where(['site.id' => $id])->asArray()->one();
+
+
+        $packages = LocationHistory::find()
+            ->where(['site_id' => $model['id']])
+            ->orderBy('timestamp DESC')
+            ->groupBy('package_id')
+            ->asArray()
+            ->all();
+
+        $response[] = $model;
+        $response['materials'] = [];
+        foreach ($packages as $key => $value) :
+            $package = Package::find()->with('material')->asArray()->one();
+
+            $response['materials'][strtolower($package['material']['name'])] = [
+                'weight' => $package['weight'],
+            ];
+        endforeach;
+
 
         // $model = \yii\helpers\ArrayHelper::map($model, '');
-        return $model;
+        return $response;
     }
 
     /**
