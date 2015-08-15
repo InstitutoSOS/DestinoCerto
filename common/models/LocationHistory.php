@@ -30,7 +30,7 @@ class LocationHistory extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['site_id'], 'required'],
+            [['site_id', 'package_id'], 'required'],
             [['id', 'site_id'], 'integer'],
             [['timestamp'], 'safe']
         ];
@@ -44,9 +44,11 @@ class LocationHistory extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'site_id' => 'Site ID',
+            'package_id' => 'package ID',
             'timestamp' => 'Timestamp',
         ];
     }
+
 
     /**
      * @return \yii\db\ActiveQuery

@@ -47,18 +47,19 @@ class LocationhistoryController extends BaseController
      */
     public function actionCreate()
     {
+        Yii::$app->response->format = 'json';
+
         $model = new LocationHistory();
         $arr['LocationHistory'] = Yii::$app->request->post();
-        if ($model->load($arr) && $model->save()) {
-            Yii::$app->response->format = 'json';
+        if ($model->load($arr)) {
+            $model->package_id = $arr['LocationHistory']['package_id'];
             Yii::$app->response->setStatusCode(201);
-            Yii::$app->response->data = $model;
-            Yii::$app->response->send();
+            if($model->save())
+                return $model;
         } else {
             Yii::$app->response->format = 'json';
             Yii::$app->response->setStatusCode(400);
-            Yii::$app->response->data = ['message' => 'Record cound\'t be saved'];
-            Yii::$app->response->send();
+            return ['message' => 'Record cound\'t be saved'];
         }
     }
 
