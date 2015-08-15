@@ -13,6 +13,7 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'id')->textInput() ?>
+    <?= $form->field($model, 'image')->textInput() ?>
 
     <?= $form->field($model, 'barcode')->textInput(['maxlength' => true]) ?>
 
