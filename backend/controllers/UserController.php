@@ -32,10 +32,10 @@ class UserController extends BaseController
         $post = Yii::$app->request->post();
 
         Yii::$app->response->format = 'json';
-        $model = User::find()->where(['username' => $post['username']])->one();
+        $model = User::find()->where(['username' => $post['username']])->with('site')->asArray()->one();
         if ($model == null) {
             return ['message' => 'User not found', 'status' => false, 'userExists' => false];
-        } elseif (Yii::$app->security->validatePassword($post['password'], $model->password)) {
+        } elseif (Yii::$app->security->validatePassword($post['password'], $model['password'])) {
             $response = [];
             $response['success'] = true;
             $response['userExists'] = true;
@@ -59,6 +59,7 @@ class UserController extends BaseController
     public function actionCreate()
     {
         $model = new User();
+        $model->scenario = 'insert';
 
         $arr['User'] = Yii::$app->request->post();
         Yii::$app->response->format = 'json';
@@ -84,16 +85,23 @@ class UserController extends BaseController
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        Yii::$app->response->format = 'json';
 
         $arr['User'] = Yii::$app->request->post();
+
         if ($model->load($arr)) {
+
+            if(!isset($arr['User']['password'])){
+                unset($model->password);
+            }
+
             if($model->save())
-                return Json::encode($model);
+                return $model;
+            else
+                return $model->errors;
         } else {
-            Yii::$app->response->format = 'json';
             Yii::$app->response->setStatusCode(400);
-            Yii::$app->response->data = ['message' => 'Record cound\'t be saved'];
-            Yii::$app->response->send();
+            return ['message' => 'Record cound\'t be saved'];
         }
     }
 
