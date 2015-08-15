@@ -33,6 +33,7 @@ class User extends \yii\db\ActiveRecord
         return [
             [['username', 'password'], 'required'],
             [['site_id', 'isAdmin'], 'integer'],
+            [['username'], 'unique'],
             [['username'], 'string', 'max' => 45],
             [['password'], 'string', 'max' => 255]
         ];

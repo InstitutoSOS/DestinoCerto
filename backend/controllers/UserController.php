@@ -67,7 +67,7 @@ class UserController extends BaseController
                 Yii::$app->response->setStatusCode(201);
                 return $model;
             } else {
-                return ['message' => 'Rcords couldn\'t be lodead saved'];
+                return ['message' => 'Rcords couldn\'t be saved', 'success' => false, 'errors' => $model->errors];
             }
         } else {
             Yii::$app->response->setStatusCode(400);
