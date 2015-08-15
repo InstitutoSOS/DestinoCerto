@@ -74,7 +74,7 @@ class MaterialController extends BaseController
         } else {
             Yii::$app->response->format = 'json';
             Yii::$app->response->setStatusCode(400);
-            Yii::$app->response->data = ['message' => 'Record cound\'t be saved'];
+            Yii::$app->response->data = ['message' => 'Record couldn\'t be saved'];
             Yii::$app->response->send();
         }
     }

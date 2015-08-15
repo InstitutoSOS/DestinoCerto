@@ -69,7 +69,7 @@ class Package extends \yii\db\ActiveRecord
      */
     public function getCurrentLocation()
     {
-        return $this->hasOne(LocationHistory::className(), ['package_id' => 'id'])->orderBy('timestamp DESC')->with('site')->limit(1);
+        return $this->hasMany(LocationHistory::className(), ['package_id' => 'id'])->orderBy('timestamp DESC')->with('site')->groupBy('material_id');
     }
 
     /**
