@@ -87,10 +87,11 @@ class MaterialController extends BaseController
      */
     public function actionDelete($id)
     {
+        
         if($this->findModel($id)->delete())
-            return Json::encode(['message' => 'Record deleted']);
+            return ['message' => 'Record deleted'];
         else
-            return Json::encode(['message' => 'Record cound\'t be deleted']);
+            return ['message' => 'Record cound\'t be deleted'];
 
         return $this->redirect(['index']);
     }
@@ -109,8 +110,7 @@ class MaterialController extends BaseController
         } else {
             Yii::$app->response->format = 'json';
             Yii::$app->response->setStatusCode(404);
-            Yii::$app->response->data = ['message' => 'Record not found'];
-            Yii::$app->response->send();
+            return ['message' => 'Record not found'];
         }
     }
 }

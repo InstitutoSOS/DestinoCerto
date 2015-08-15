@@ -45,6 +45,10 @@ class SiteController extends BaseController
             ->innerJoin('material')
             ->asArray()
             ->one();
+        $model = Site::find()->where(['site.id' => $id])->one();
+        $packages = Package::find()->where(['site_id' => $model->id])->all();
+
+        // $model = \yii\helpers\ArrayHelper::map($model, '');
         return $model;
     }
 

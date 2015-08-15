@@ -19,6 +19,8 @@ use Yii;
  */
 class Site extends \yii\db\ActiveRecord
 {
+    public $material = [];
+
     /**
      * @inheritdoc
      */
