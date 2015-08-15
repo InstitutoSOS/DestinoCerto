@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'lng',
             'name',
             'taxId',
-            'isCooperative',
+            'site_type',
         ],
     ]) ?>
 
